@@ -10,7 +10,7 @@ import menuItemRoutes from './routes/menuItem.routes.js'
 
 configDotenv()
 app.get("/", (res, req) => {
-  req.send("Welcome to my Hotel....How can I Help assist you today?");
+  req.send("Welcome to my Hotel....How can I Help you today?");
 });
 
 app.use('/person',personRoutes)
