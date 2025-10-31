@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 import {configDotenv} from "dotenv";
 
 configDotenv()
-// const mongoUrl = process.env.MONGODB_URL_LOCAL
+const mongoUrl = process.env.MONGODB_URL_LOCAL
 //eshtablishing the MongoDB connection 
 
-const MongoDBUrl = process.env.MONGODB_URL
+// const MongoDBUrl = process.env.MONGODB_URL
 
-mongoose.connect(MongoDBUrl,{
+mongoose.connect(mongoUrl,{
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
