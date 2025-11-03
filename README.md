@@ -170,9 +170,4 @@ This project is licensed under the **ISC License**.
 
 ### 🌟 If you like this project, give it a ⭐ on GitHub!
 
-```
 
----
-
-Would you like me to include a **“Postman Collection” section** (with example API requests for testing `/register`, `/login`, and `/menu` routes)? It makes your README more complete and professional for portfolio projects.
-```
