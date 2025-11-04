@@ -5,13 +5,13 @@
 # 🏨 Node.js Hotel API
 
 A secure **Hotel Management API** built with **Node.js**, **Express.js**, and **MongoDB**.  
-This API allows users to perform CRUD operations on hotel menus — **create**, **read**, **update**, and **delete** — with **authentication** and **password protection** using **Passport.js** and **bcrypt.js**.
+This API allows users to perform CRUD operations on hotel menus — **create**, **read**, **update**, and **delete** — with **authentication** and **password protection** using **Jwt** and **bcrypt.js**.
 
 ---
 
 ## 🚀 Features
 
-- 🔐 **User Authentication** using Passport.js (Local Strategy)
+- 🔐 **User Authentication** using Jwt Auth
 - 🔒 **Password Hashing** with bcrypt.js
 - 📋 **CRUD Operations** on Menu Items
 - 🗂️ **MongoDB Integration** using Mongoose
@@ -28,7 +28,7 @@ This API allows users to perform CRUD operations on hotel menus — **create**, 
 | **Node.js** | Server runtime |
 | **Express.js** | Web framework |
 | **MongoDB + Mongoose** | Database & ODM |
-| **Passport.js (Local Strategy)** | Authentication |
+| **Jwt** | Authentication |
 | **bcrypt.js** | Password encryption |
 | **dotenv** | Environment variables |
 | **body-parser** | Parsing request bodies |
@@ -76,7 +76,7 @@ npm install
 ```env
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
-SESSION_SECRET=your_secret_key
+JWT_SECRET=your_secret_key
 ```
 
 ### 4️⃣ Start the Server
@@ -92,7 +92,7 @@ Server will run on:
 
 ## 🔑 Authentication
 
-The app uses **Passport.js (Local Strategy)** to authenticate users.
+The app uses **Jwt Auth Token** to authenticate users.
 
 ### 🔹 Register a new user
 
