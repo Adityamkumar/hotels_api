@@ -1,8 +1,9 @@
 import express from "express";
 const router = express.Router();
 import Person from "../models/person.js";
+import { jwtAuthMiddleware, generateJwtToken } from "../auth/jwtAuth.js";
 
-router.post("/", async (req, res) => {
+router.post("/signup", async (req, res) => {
   try {
     const data = req.body;
 
@@ -12,15 +13,47 @@ router.post("/", async (req, res) => {
     //save the newPerson data into database
     const response = await newPerson.save();
     console.log("data saved");
-    res.status(200).json(response);
+    const payLoad = {
+      id: response.id,
+      username: response.username,
+    };
+    const token = generateJwtToken(payLoad);
+    res.status(200).json({ response: response, token: token });
   } catch (error) {
     console.log("Error saving personData:", error);
     res.status(500).json({ message: "Internel server error" });
   }
 });
 
+//Login Route
+
+router.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    //find the user by username in the DB
+
+    const user = await Person.findOne({ username: username });
+
+    if (!user || !(await user.comparePassword(password))) {
+      return res.status(401).json({ error: "Invalid username or password" });
+    }
+
+    const payLoad = {
+      id: user.id,
+      username: user.username,
+    };
+
+    const token = generateJwtToken(payLoad);
+
+    res.json({ token });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internerl server error" });
+  }
+});
+
 //Get method to fetch person data from database
-router.get("/", async (req, res) => {
+router.get("/", jwtAuthMiddleware, async (req, res) => {
   try {
     const data = await Person.find();
     console.log("data saved");
@@ -28,6 +61,21 @@ router.get("/", async (req, res) => {
   } catch (error) {
     console.log("Error fetching personData:", error);
     res.status(500).json({ message: "Internel server error" });
+  }
+});
+
+//Profile route
+
+router.get("/profile", jwtAuthMiddleware,async (req, res) => {
+  try {
+    const userData = req.userPayload;
+    const userId = userData.id;
+    const user = await Person.findById(userId);
+
+    res.status(200).json({user});
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internel server error" });
   }
 });
 
@@ -86,7 +134,7 @@ router.delete("/:id", async (req, res) => {
     }
 
     console.log("Person deleted successfully");
-    res.status(200).json({message: 'person Deleted successfully'});
+    res.status(200).json({ message: "person Deleted successfully" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internel server error" });

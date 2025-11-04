@@ -27,8 +27,8 @@ app.get("/", (res, req) => {
 
 app.use(logRequest);
 
-app.use("/person",localAuthMiddleware, personRoutes);
-app.use("/menu", localAuthMiddleware, menuItemRoutes);
+app.use("/person", personRoutes);
+app.use("/menu", menuItemRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server Running on PORT: 3000`);
