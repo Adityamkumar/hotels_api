@@ -96,7 +96,7 @@ The app uses **Jwt Auth Token** to authenticate users.
 
 ### 🔹 Register a new user
 
-**POST** `/register`
+**POST** `/signup`
 
 ```json
 {
@@ -143,12 +143,12 @@ After login, you will get an authenticated session and can access protected rout
 
 ```bash
 # Login
-curl -X POST http://localhost:5000/login \
+curl -X POST http://localhost:3000/login \
   -H "Content-Type: application/json" \
   -d '{"username":"admin","password":"1234"}'
 
 # Get Menus (after login)
-curl -X GET http://localhost:5000/menu \
+curl -X GET http://localhost:3000/menu \
   -b cookie.txt -c cookie.txt
 ```
 
